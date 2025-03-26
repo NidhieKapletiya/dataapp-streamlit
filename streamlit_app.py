@@ -29,11 +29,6 @@ st.dataframe(sales_by_month)
 # Here the grouped months are the index and automatically used for the x axis
 st.line_chart(sales_by_month, y="Sales")
 
-# Convert 'Order_Date' column to datetime format and extract the month
-
-df['Month'] = df["Order_Date"].dt.month_name()
-
-
 #st.write("## Your additions")
 #st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
 
@@ -63,6 +58,8 @@ filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(s
 
 st.write("### (3) show a line chart of sales for the selected items in (2)")
 
+filtered_data['Order_Date'] = pd.to_datetime(df['Order_Date'], errors='coerce')  # Convert to datetime
+filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
 # Line chart for selected subcategory
 if not filtered_data.empty:
