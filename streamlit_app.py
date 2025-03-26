@@ -56,13 +56,17 @@ filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(s
 #st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
 #st.dataframe(filtered_data)
 
-# Optional: Summary of sales for selected filters
+st.write("### (3) show a line chart of sales for the selected items in (2)")
+
+# Line chart for selected subcategory
 if not filtered_data.empty:
-    total_sales = filtered_data['Sales'].sum()
-    st.write(f"**Total Sales for the Selected Filters: ${total_sales}**")
+    st.write("### Sales Trend")
+    sales_trend_data = filtered_data.groupby('pd.Grouper(freq='M')')['Sales'].sum().reset_index()  # Aggregate sales by month
+    sales_trend_data = sales_trend_data.set_index('Month')  # Set month as index for the line chart
+    st.line_chart(sales_trend_data)
 else:
     st.write("No data available for the selected filters.")
 
-st.write("### (3) show a line chart of sales for the selected items in (2)")
+
 st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
