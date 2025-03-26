@@ -29,8 +29,8 @@ st.dataframe(sales_by_month)
 # Here the grouped months are the index and automatically used for the x axis
 st.line_chart(sales_by_month, y="Sales")
 
-st.write("## Your additions")
-st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
+#st.write("## Your additions")
+#st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
 
 # Dropdown menu for category selection
 category_options = df['Category'].unique()  # Extract unique categories from the DataFrame
@@ -40,10 +40,10 @@ selected_category = st.selectbox("Select a Category", category_options)
 filtered_by_category = df[df['Category'] == selected_category]
 
 # Display the filtered data
-st.write(f"### Filtered Data for Category: {selected_category}")
-st.dataframe(filtered_by_category)
+#st.write(f"### Filtered Data for Category: {selected_category}")
+#st.dataframe(filtered_by_category)
 
-st.write("### (2) add a multi-select for Sub_Category *in the selected Category (1)* (https://docs.streamlit.io/library/api-reference/widgets/st.multiselect)")
+#st.write("### (2) add a multi-select for Sub_Category *in the selected Category (1)* (https://docs.streamlit.io/library/api-reference/widgets/st.multiselect)")
 
 # Multi-select for Sub_Category within selected Category
 sub_category_options = filtered_by_category['Sub_Category'].unique()  # Get unique sub-categories
@@ -53,8 +53,8 @@ selected_sub_categories = st.multiselect("Select Sub-Categories", sub_category_o
 filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
 
 # Display the filtered data
-st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
-st.dataframe(filtered_data)
+#st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
+#st.dataframe(filtered_data)
 
 # Optional: Summary of sales for selected filters
 if not filtered_data.empty:
