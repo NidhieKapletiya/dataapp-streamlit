@@ -58,10 +58,14 @@ filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(s
 
 st.write("### (3) show a line chart of sales for the selected items in (2)")
 
+# Convert 'Order_Date' column to datetime format and extract the month
+df['Order_Date'] = pd.to_datetime(df['Order_Date'])
+df['Month'] = df['Order_Date'].dt.strftime('%B')  # Extract month
+
 # Line chart for selected subcategory
 if not filtered_data.empty:
     st.write("Sales Trend")
-    sales_trend_data = filtered_data.groupby(pd.Grouper(freq='M'))['Sales'].sum().reset_index()  # Aggregate sales by month
+    sales_trend_data = filtered_data.groupby('Month')['Sales'].sum().reset_index()  # Aggregate sales by month
     sales_trend_data = sales_trend_data.set_index('Month')  # Set month as index for the line chart
     st.line_chart(sales_trend_data)
 else:
