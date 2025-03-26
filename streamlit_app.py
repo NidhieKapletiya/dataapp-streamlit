@@ -58,7 +58,6 @@ filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(s
 
 st.write("### (3) show a line chart of sales for the selected items in (2)")
 
-filtered_data['Order_Date'] = pd.to_datetime(df['Order_Date'], errors='coerce')  # Convert to datetime
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
 # Line chart for selected subcategory
