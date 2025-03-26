@@ -31,7 +31,8 @@ st.line_chart(sales_by_month, y="Sales")
 
 # Convert 'Order_Date' column to datetime format and extract the month
 
-df['Month'] = df['Order_Date'].dt.strftime('%B')  # Extract month
+df['Month'] = pd.to_datetime(df['Order_Date'], errors='coerce').dt.month_name()
+
 
 #st.write("## Your additions")
 #st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
