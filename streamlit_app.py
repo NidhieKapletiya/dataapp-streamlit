@@ -37,11 +37,11 @@ category_options = df['Category'].unique()  # Extract unique categories from the
 selected_category = st.selectbox("Select a Category", category_options)
 
 # Filter the DataFrame based on selected category
-filtered_data = df[df['Category'] == selected_category]
+filtered_by_category = df[df['Category'] == selected_category]
 
 # Display the filtered data
 st.write(f"### Filtered Data for Category: {selected_category}")
-st.dataframe(filtered_data)
+st.dataframe(filtered_by_category)
 
 st.write("### (2) add a multi-select for Sub_Category *in the selected Category (1)* (https://docs.streamlit.io/library/api-reference/widgets/st.multiselect)")
 
