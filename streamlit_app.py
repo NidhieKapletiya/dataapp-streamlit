@@ -112,23 +112,3 @@ if not filtered_data.empty:
     metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
-# Calculate overall average profit margin across all products and categories
-overall_sales = df['Sales'].sum()
-overall_profit = df['Profit'].sum()
-overall_avg_profit_margin = (overall_profit / overall_sales) * 100 if overall_sales > 0 else 0
-
-# Display metrics for each subcategory
-st.write("### Metrics for Each Subcategory")
-for sub_category, row in metrics.iterrows():
- # Calculate delta (difference from overall average profit margin)
-   profit_margin_delta = row['Profit_Margin (%)'] - overall_avg_profit_margin
-st.write(f"#### {sub_category}")
-st.metric(label="Total Sales", value=f"${row['Total_Sales']}")
-st.metric(label="Total Profit", value=f"${row['Total_Profit']}")
-st.metric(
-     label="Profit Margin (%)",
-     value=f"{row['Profit_Margin (%)']:.2f}%",
-     delta=f"{profit_margin_delta:.2f}%"
- )
-else:
-    st.write("No data available for the selected filters.")
