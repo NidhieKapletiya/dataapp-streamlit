@@ -119,17 +119,16 @@ overall_avg_profit_margin = (overall_profit / overall_sales) * 100 if overall_sa
 
 # Display metrics for each subcategory
 st.write("### Metrics for Each Subcategory")
-   for sub_category, row in metrics.iterrows():
-        # Calculate delta (difference from overall average profit margin)
-        profit_margin_delta = row['Profit_Margin (%)'] - overall_avg_profit_margin
-        
-        st.write(f"#### {sub_category}")
-        st.metric(label="Total Sales", value=f"${row['Total_Sales']}")
-        st.metric(label="Total Profit", value=f"${row['Total_Profit']}")
-        st.metric(
-            label="Profit Margin (%)",
-            value=f"{row['Profit_Margin (%)']:.2f}%",
-            delta=f"{profit_margin_delta:.2f}%"
-        )
+for sub_category, row in metrics.iterrows():
+ # Calculate delta (difference from overall average profit margin)
+   profit_margin_delta = row['Profit_Margin (%)'] - overall_avg_profit_margin
+st.write(f"#### {sub_category}")
+st.metric(label="Total Sales", value=f"${row['Total_Sales']}")
+st.metric(label="Total Profit", value=f"${row['Total_Profit']}")
+st.metric(
+     label="Profit Margin (%)",
+     value=f"{row['Profit_Margin (%)']:.2f}%",
+     delta=f"{profit_margin_delta:.2f}%"
+ )
 else:
     st.write("No data available for the selected filters.")
