@@ -84,7 +84,7 @@ sales_trend_data = filtered_data.groupby(['Sub_Category', 'Month_Number', 'Month
 sales_trend_data = sales_trend_data.sort_values('Month_Number')
 
 # Pivot the table so that each Sub_Category has its own column
-sales_trend_pivot = sales_trend_data.pivot(index='Month', columns='Sub_Category', values='Sales')
+sales_trend_pivot = sales_trend_data.pivot(index='Month_Number', columns='Sub_Category', values='Sales')
 
 # Plot the line chart
 st.line_chart(sales_trend_pivot)
