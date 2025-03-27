@@ -84,7 +84,7 @@ sales_trend_pivot = sales_trend_data.pivot(index='Month', columns='Sub_Category'
 # Plot the line chart with the months in the correct order
 st.line_chart(sales_trend_pivot)
 
-st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
+#st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
 # Calculate and display metrics for each subcategory
 if not filtered_data.empty:
     # Group by Sub_Category and calculate metrics
