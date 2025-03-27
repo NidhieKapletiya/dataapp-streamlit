@@ -53,11 +53,10 @@ selected_sub_categories = st.multiselect("Select Sub-Categories", sub_category_o
 filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
 
 # Display the filtered data
-st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
-st.dataframe(filtered_data)
+#st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
+#st.dataframe(filtered_data)
 
-st.write("### (3) show a line chart of sales for the selected items in (2)")
-
+#st.write("### (3) show a line chart of sales for the selected items in (2)")
 
 filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
 
@@ -86,4 +85,23 @@ sales_trend_pivot = sales_trend_data.pivot(index='Month', columns='Sub_Category'
 st.line_chart(sales_trend_pivot)
 
 st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
+# Calculate and display metrics for each subcategory
+if not filtered_data.empty:
+    # Group by Sub_Category and calculate metrics
+    metrics = filtered_data.groupby('Sub_Category').agg(
+        Total_Sales=('Sales', 'sum'),
+        Total_Profit=('Profit', 'sum')
+    )
+    metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
+
+ # Display metrics for each subcategory
+    st.write("### Metrics for Each Subcategory")
+    for sub_category, row in metrics.iterrows():
+        st.write(f"#### {sub_category}")
+        st.metric(label="Total Sales", value=f"${row['Total_Sales']}")
+        st.metric(label="Total Profit", value=f"${row['Total_Profit']}")
+        st.metric(label="Profit Margin (%)", value=f"{row['Profit_Margin (%)']:.2f}%")
+else:
+    st.write("No data available for the selected filters.")
+
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
