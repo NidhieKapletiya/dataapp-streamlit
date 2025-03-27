@@ -61,52 +61,8 @@ st.write("### (3) show a line chart of sales for the selected items in (2)")
 
 filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
 
-st.write(filtered_data.columns)
+#st.write(filtered_data.columns)
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
-
-# Line chart for selected subcategory
-if not filtered_data.empty:
-    st.write("Sales Trend")
-    sales_trend_data = filtered_data.groupby('Month')['Sales'].sum().reset_index()  # Aggregate sales by month
-    sales_trend_data = sales_trend_data.set_index('Month')  # Set month as index for the line chart
-    st.line_chart(sales_trend_data)
-else:
-    st.write("No data available for the selected filters.")
-
-# Add numerical month to help with sorting
-filtered_data['Month_Number'] = filtered_data['Order_Date'].dt.month
-filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
-
-# Group by Sub_Category, Month_Number, and Month to preserve the order and sub-category breakdown
-sales_trend_data = filtered_data.groupby(['Sub_Category', 'Month_Number', 'Month'])['Sales'].sum().reset_index()
-
-# Sort the data by Month_Number to ensure correct order
-sales_trend_data = sales_trend_data.sort_values('Month_Number')
-
-# Pivot the table so that each Sub_Category has its own column
-sales_trend_pivot = sales_trend_data.pivot(index='Month', columns='Sub_Category', values='Sales')
-
-# Plot the line chart
-st.line_chart(sales_trend_pivot)
-
-# Add numerical month to help with sorting
-filtered_data['Month_Number'] = filtered_data['Order_Date'].dt.month
-filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
-
-# Group by Sub_Category, Month_Number, and Month to preserve the order and sub-category breakdown
-sales_trend_data = filtered_data.groupby(['Sub_Category', 'Month_Number', 'Month'])['Sales'].sum().reset_index()
-
-# Sort the data by Month_Number to ensure correct chronological order
-sales_trend_data = sales_trend_data.sort_values('Month_Number')
-
-# Pivot the table so that each Sub_Category has its own column
-sales_trend_pivot = sales_trend_data.pivot(index='Month_Number', columns='Sub_Category', values='Sales')
-
-# Replace the Month_Number index with actual month names (in the correct order)
-sales_trend_pivot.index = sales_trend_data.drop_duplicates('Month_Number').set_index('Month_Number')['Month']
-
-# Plot the line chart with the months in the correct order
-st.line_chart(sales_trend_pivot)
 
 import calendar
 
