@@ -93,7 +93,7 @@ if not filtered_data.empty:
         Total_Profit=('Profit', 'sum')
     )
     metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
-
+'''
  # Display metrics for each subcategory
     st.write("### Metrics for Each Subcategory")
     for sub_category, row in metrics.iterrows():
@@ -109,6 +109,6 @@ if not filtered_data.empty:
         Total_Sales=('Sales', 'sum'),
         Total_Profit=('Profit', 'sum')
     )
-    metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
+    metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100'''
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
