@@ -53,8 +53,8 @@ selected_sub_categories = st.multiselect("Select Sub-Categories", sub_category_o
 filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
 
 # Display the filtered data
-#st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
-#st.dataframe(filtered_data)
+st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
+st.dataframe(filtered_data)
 
 st.write("### (3) show a line chart of sales for the selected items in (2)")
 
