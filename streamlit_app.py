@@ -94,21 +94,27 @@ if not filtered_data.empty:
     )
     metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
 
- # Display metrics for each subcategory
-    st.write("### Metrics for Each Subcategory")
-    for sub_category, row in metrics.iterrows():
-        st.write(f"#### {sub_category}")
-        st.metric(label="Total Sales", value=f"${row['Total_Sales']}")
-        st.metric(label="Total Profit", value=f"${row['Total_Profit']}")
-        st.metric(label="Profit Margin (%)", value=f"{row['Profit_Margin (%)']:.2f}%")
-else:
-    st.write("No data available for the selected filters.")
-if not filtered_data.empty:
-    # Group by Sub_Category and calculate metrics
-    metrics = filtered_data.groupby('Sub_Category').agg(
+    # Calculate overall average profit margin (across all categories)
+    overall_metrics = df.groupby('Sub_Category').agg(
         Total_Sales=('Sales', 'sum'),
         Total_Profit=('Profit', 'sum')
     )
-    metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
-st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
+    overall_metrics['Profit_Margin (%)'] = (overall_metrics['Total_Profit'] / overall_metrics['Total_Sales']) * 100
+    overall_average_profit_margin = overall_metrics['Profit_Margin (%)'].mean()
 
+    # Display metrics for each subcategory in columns
+    st.write("### Metrics for Each Subcategory")
+    for sub_category, row in metrics.iterrows():
+        st.write(f"#### {sub_category}")
+        
+        # Create 3 columns to display metrics side by side
+        col1, col2, col3 = st.columns(3)
+        
+        # Display metrics in respective columns
+        col1.metric(label="Total Sales", value=f"${row['Total_Sales']}")
+        col2.metric(label="Total Profit", value=f"${row['Total_Profit']}")
+        profit_margin_delta = row['Profit_Margin (%)'] - overall_average_profit_margin
+        col3.metric(label="Profit Margin (%)", value=f"{row['Profit_Margin (%)']:.2f}%", delta=f"{profit_margin_delta:.2f}%")
+
+else:
+    st.write("No data available for the selected filters.")
