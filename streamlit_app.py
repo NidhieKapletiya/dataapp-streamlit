@@ -110,6 +110,7 @@ if not filtered_data.empty:
         Total_Profit=('Profit', 'sum')
     )
     metrics['Profit_Margin (%)'] = (metrics['Total_Profit'] / metrics['Total_Sales']) * 100
+st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
     # Calculate overall average profit margin across all products and categories
     overall_sales = df['Sales'].sum()
@@ -132,4 +133,3 @@ if not filtered_data.empty:
         )
 else:
     st.write("No data available for the selected filters.")
-st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
