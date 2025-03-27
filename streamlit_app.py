@@ -58,8 +58,10 @@ st.dataframe(filtered_data)
 
 st.write("### (3) show a line chart of sales for the selected items in (2)")
 
-st.write(filtered_data.columns)
 
+filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
+
+st.write(filtered_data.columns)
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
 # Line chart for selected subcategory
