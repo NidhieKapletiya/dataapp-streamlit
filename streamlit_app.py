@@ -73,6 +73,21 @@ if not filtered_data.empty:
 else:
     st.write("No data available for the selected filters.")
 
+# Add numerical month to help with sorting
+filtered_data['Month_Number'] = filtered_data['Order_Date'].dt.month
+filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
+
+# Group by Sub_Category, Month_Number, and Month to preserve the order and sub-category breakdown
+sales_trend_data = filtered_data.groupby(['Sub_Category', 'Month_Number', 'Month'])['Sales'].sum().reset_index()
+
+# Sort the data by Month_Number to ensure correct order
+sales_trend_data = sales_trend_data.sort_values('Month_Number')
+
+# Pivot the table so that each Sub_Category has its own column
+sales_trend_pivot = sales_trend_data.pivot(index='Month', columns='Sub_Category', values='Sales')
+
+# Plot the line chart
+st.line_chart(sales_trend_pivot)
 
 st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
