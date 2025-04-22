@@ -85,8 +85,9 @@ col2.metric("Total Profit", f"${total_profit:,.2f}")
 col3.metric(
    "Profit Margin (%)",
    f"{profit_margin:.2f}%",
-   f"{profit_margin_delta:.2f}%",  # Delta
+   f"{profit_margin_delta:.2f}%" # Delta
 )
+
 else:
    st.write("⚠️ Please select at least one Sub-Category to view data.")
 
