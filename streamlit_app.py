@@ -50,16 +50,16 @@ filtered_by_category = df[df['Category'] == selected_category]
 sub_category_options = filtered_by_category['Sub_Category'].unique()  # Get unique sub-categories
 selected_sub_categories = st.multiselect("Select Sub-Categories", sub_category_options)
 
-# Filter data further based on selected Sub_Categories
-filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
-
-# Display the filtered data
-#st.write(f"### Filtered Data for Category: {selected_category} and Sub-Categories: {', '.join(selected_sub_categories) if selected_sub_categories else 'None'}")
-#st.dataframe(filtered_data)
 
 #st.write("### (3) show a line chart of sales for the selected items in (2)")
 
-filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
+Further filter dataframe based on selected subcategories
+if selected_subcategories:
+   # Filter data further based on selected Sub_Categories
+   filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
+
+   filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
+ 
  # (3) Aggregate sales data by month
 sales_by_month = (
      filtered_data.groupby(pd.Grouper(freq="M"))["Sales"].sum()
