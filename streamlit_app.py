@@ -83,17 +83,19 @@ if selected_sub_categories:
 else:
     st.write("⚠️ Please select at least one Sub-Category to view data.")
 
+
+
 '''
-#st.write(filtered_data.columns)
+st.write(filtered_data.columns)
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
 import calendar
 
-# Add numerical month to help with sorting
+Add numerical month to help with sorting
 filtered_data['Month_Number'] = filtered_data['Order_Date'].dt.month
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
-# Group by Sub_Category, Month_Number, and Month to preserve the order and sub-category breakdown
+ Group by Sub_Category, Month_Number, and Month to preserve the order and sub-category breakdown
 sales_trend_data = filtered_data.groupby(['Sub_Category', 'Month_Number', 'Month'])['Sales'].sum().reset_index()
 
 # Explicitly define the order of months using pandas Categorical
