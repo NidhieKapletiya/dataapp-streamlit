@@ -87,9 +87,8 @@ col3.metric(
    f"{profit_margin:.2f}%",
    f"{profit_margin_delta:.2f}%",  # Delta
 )
-
 else:
-    st.write("⚠️ Please select at least one Sub-Category to view data.")
+   st.write("⚠️ Please select at least one Sub-Category to view data.")
 
 
 '''
