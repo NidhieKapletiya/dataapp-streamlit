@@ -53,7 +53,7 @@ selected_sub_categories = st.multiselect("Select Sub-Categories", sub_category_o
 
 #st.write("### (3) show a line chart of sales for the selected items in (2)")
 
-Further filter dataframe based on selected subcategories
+#Further filter dataframe based on selected subcategories
 if selected_subcategories:
    # Filter data further based on selected Sub_Categories
    filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(selected_sub_categories)]
