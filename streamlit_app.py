@@ -3,7 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import math
 
-st.title("Data App Assignment, on March 17th")
+st.title("Data App Assignment")
+st.subheader("~ by Nidhi Kapletiya")
 
 st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=True)
@@ -59,7 +60,42 @@ filtered_data = filtered_by_category[filtered_by_category['Sub_Category'].isin(s
 #st.write("### (3) show a line chart of sales for the selected items in (2)")
 
 filtered_data = filtered_data.reset_index()  # 'Order_Date' will now be a column again
+ # (3) Aggregate sales data by month
+    sales_by_month = (
+        filtered_data
+        .groupby(pd.Grouper(freq="M"))["Sales"]
+        .sum()
+    )
 
+    # Line Chart for Sales
+    st.write("### Sales Over Time for Selected Sub-Categories")
+    st.line_chart(sales_by_month, y="Sales")
+
+    # (4) Calculate Metrics
+    total_sales = filtered_data["Sales"].sum()
+    total_profit = filtered_data["Profit"].sum()
+    profit_margin = (total_profit / total_sales) * 100 if total_sales > 0 else 0
+
+    # (5) Calculate overall average profit margin
+    overall_profit_margin = (df["Profit"].sum() / df["Sales"].sum()) * 100
+    profit_margin_delta = profit_margin - overall_profit_margin
+
+    # Display Metrics
+    st.write("### Key Metrics")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Total Sales", f"${total_sales:,.2f}")
+    col2.metric("Total Profit", f"${total_profit:,.2f}")
+    col3.metric(
+        "Profit Margin (%)",
+        f"{profit_margin:.2f}%",
+        f"{profit_margin_delta:.2f}%",  # Delta
+    )
+
+else:
+    st.write("⚠️ Please select at least one Sub-Category to view data.")
+
+
+'''
 #st.write(filtered_data.columns)
 filtered_data['Month'] = filtered_data['Order_Date'].dt.month_name()
 
@@ -118,3 +154,4 @@ if not filtered_data.empty:
 
 else:
     st.write("No data available for the selected filters.")
+'''
